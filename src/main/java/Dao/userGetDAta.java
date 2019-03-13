@@ -15,8 +15,8 @@ public class userGetDAta implements IuserGetData {
 		Map<String,String> bookmap = new HashMap<String,String >();
 		String className = "com.mysql.jdbc.Driver"; 	    
 		String url = "jdbc:mysql://127.0.0.1:3306/employees?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false";
-		String dbusername = "root";	    
-		String password = "qinian941205zz.";
+		String dbusername = "用户名";	    
+		String password = "数据库密码";
 		try {
 			Class.forName(className);
 			System.out.println("Success loading Mysql driver!");
