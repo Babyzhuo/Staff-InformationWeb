@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">  
+<meta charset="UTF-8">   
+<title>register</title>  
+<script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<style type="text/css">      
+* {            box-sizing: border-box;        }        
+body {            
+ 	margin: 0;            
+	padding: 0;            
+	font: 16px/20px microsft yahei;      
+	  }        
+.wrap {            
+	width: 100%;            
+	height: 100%;            
+	padding: 10% 0;            
+	position: fixed;            
+	opacity: 0.8;            
+	background: linear-gradient(to bottom right,#000000, #656565);            
+	background: -webkit-linear-gradient(to bottom right,#50a3a2,#53e3a6);     
+	   }        
+.container {           
+	width: 60%;           
+	margin: 0 auto; 
+	      
+	 }        
+.container h1 {            
+	text-align: center;           
+	color: #FFFFFF;            
+	font-weight: 500;      
+	  }       
+.container input {            
+	width: 320px;            
+	display: block;            
+	height: 36px;            
+	border: 0;            
+	outline: 0;            
+	padding: 6px 10px;            
+	line-height: 24px;            
+	margin: 32px auto;            
+	-webkit-transition: all 0s ease-in 0.1ms;            
+	-moz-transition: all 0s ease-in 0.1ms;            
+	transition: all 0s ease-in 0.1ms;      
+	  }        
+.container input[type="text"] , 
+.container input[type="password"]  {            
+	background-color: #FFFFFF;            
+	font-size: 16px;            
+	color: #50a3a2;        }        
+.container input[type='submit'] {            
+	font-size: 16px;            
+	letter-spacing: 2px;            
+	color: #666666;            
+	background-color: #FFFFFF;       
+	 }        
+.container input:focus {            
+	width: 400px;       
+	 }        
+.container input[type='submit']:hover {            
+	cursor: pointer;            
+	width: 400px;        
+	} 
+.staff{
+	font-size:20px;
+	font-family:"华文楷体";
+	font-width:5px;
+	color:white;
+	position:absolute;
+	width:60%;
+	left:20%;
+	text-align:center;
+	
+}
+li{
+	list-style:none;
+}
+ul{
+	margin:0px;
+	padding:0px;
+	}	             
+</style>
+</head>
+<body>
+<div class="wrap">    
+<div class="container">   
+      
+<h1>Sign up</h1>  
+     
+<form id ="form1" action = "">            
+<input type="text" placeholder="Your username" id = "user"/>            
+           
+<input type="password" placeholder="password" id = "pwd" value = "123456"/>            
+           
+<input  value="Sign up" onclick = "login()"/>  
+           
+</form>  
+<div class = "staff" id = "demo"  ></div> 
+</div>
+
+</div>
+
+</body>
+<script type="text/javascript">
+        function login() {
+        	var user = document.getElementById("user").value;
+        	var pwd = document.getElementById("pwd").value;
+            $.ajax({
+            //几个参数需要注意一下
+                type: "GET",//方法类型
+                dataType: "text",//预期服务器返回的数据类型
+                url: "/getData?user="+user ,//url
+                //data: $('#form1').serialize(),
+                success: function (result) {
+					var s = JSON.parse(result);
+					if(s.status == "error"){
+						alert("非法员工!");
+					}
+					else{
+						var html="";
+						html = "<ul><h3>员工信息</h3>"+
+								"<li> 所属部门编号："+s.d_dept_no+"</li>"+
+								"<li> 所属部门名称："+s.dept_name+"</li>"+
+								"<li> 员工的姓名："+s.first_name+s.last_name+"</li>"+
+								"<li> 员工的职位："+s.title+"</li>"+
+								"<li> 员工的薪水："+s.salary+"</li>"+
+								"<li> 员工的性别："+s.gender+"</li>"+
+								"<li> 员工的出生日期："+s.birth_date+"</li>"+
+								"<li> 雇佣日期："+s.hire_date+"</li>"+
+								"<li> 雇佣起始日期："+s.dept_emp_from_date+"</li>"+
+								"<li> 雇佣截至日期："+s.dept_emp_to_date+"</li>"+
+								"</ul>";
+						$("#demo").html(html);	
+						
+					}
+                },
+                error : function() {
+                    alert("异常！");
+                }
+            });
+        }
+    </script>
+
+</html>
